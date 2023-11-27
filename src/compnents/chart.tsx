@@ -35,19 +35,31 @@ const Chart = ({ PopulationData }: ChartProps): JSX.Element => {
 
   const options: Highcharts.Options = {
     title: {
-        text: "TITLE"
+        text: ''
     },
 
     xAxis: {
       title: {
+        align: 'high',
         text: words.YEAR,
       },
     },
 
     yAxis: {
       title: {
+        align: 'high',
         text: words.POPULATION_COUNT,
       },
+      labels: {
+        formatter: function () {
+          return this.value.toFixed(0)
+        }
+      }
+    },
+    legend: {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle'
     },
     
     series:
@@ -59,7 +71,7 @@ const Chart = ({ PopulationData }: ChartProps): JSX.Element => {
               data: [],
             },
           ]
-        : series,
+      : series,
   };
 
   return (

@@ -15,7 +15,10 @@ export type checkBoxState = {
 
 const checkBox = ({ prefectures, onChange }: checkBoxState):JSX.Element => {
     return (
-        <div>
+        <div style={{
+            display: "flex",
+            flexWrap: "wrap" 
+        }}>
             {prefectures?.map((prefecture) => (
                 <div key={prefecture.prefName}>
                     <input

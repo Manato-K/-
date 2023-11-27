@@ -3,7 +3,10 @@ import words from "@/constants/language/ja/commons"
 
 const defaultHeader = ():JSX.Element => {
     return (
-        <header>
+        <header style={{
+            textAlign: "center",
+            backgroundColor: "#cccccc"
+        }}>
             <p>{ words.HEADER_TITLE }</p>
         </header>
     )
