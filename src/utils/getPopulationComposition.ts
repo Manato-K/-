@@ -5,9 +5,13 @@ const header = {
 } as const 
 
 
-export const getPopulationConfiguration = async ():Promise<any[]> => {
+export const getPopulationConfiguration = async (
+    prefCode: number,
+    prefName: string,
+    check: boolean
+):Promise<any[]> => {
     const result = await fetch(
-        GET_POPULATION_CONFIGURATION_URL,
+        GET_POPULATION_CONFIGURATION_URL + String(prefCode),
         {
             method: 'GET',
             headers: header
