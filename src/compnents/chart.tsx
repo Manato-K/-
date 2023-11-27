@@ -18,16 +18,18 @@ const Chart = ({ PopulationData }: ChartProps): JSX.Element => {
   const categories: string[] = [];
 
   PopulationData?.forEach((population) => {
-    let data: number[] = []
+    let data: string[] = []
+    // fix 型の修正
     population.data.forEach((PopulationData) => {
+        data.push(String(PopulationData.value))
         categories.push(String(PopulationData.year))
     })
-    
     series.push({
         type: "line",
         name: population.prefName,
         data: data
     })
+    console.log("aa",series)
   })
   
 

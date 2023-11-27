@@ -4,7 +4,6 @@ import List from "@/compnents/prefecturesList"
 import Chart from "@/compnents/chart"
 import { getPrefecures, prefectures } from "@/utils/getPrefectures"
 import { getPopulationConfiguration } from "@/utils/getPopulationComposition"
-import { ChartProps } from "@/compnents/chart"
 
 export default function Home() {
   const [ prefectures, setPrefectuers ] = useState<
@@ -16,7 +15,15 @@ export default function Home() {
       }[]
     } | null
   >(null)
-  const [ prefPopulation, setPrefPopulation] = useState<ChartProps["PopulationData"]>([])
+  const [ prefPopulation, setPrefPopulation] = useState<
+    {
+      prefName: string,
+      data: {
+        year: number,
+        value: number,
+      }[]
+    }[]
+  >([])
 
   useEffect(() => {
     
@@ -25,13 +32,6 @@ export default function Home() {
       setPrefectuers(result)
     })
     .catch((e) => {})
-    // const fetchPrefectures = async () => {
-    //     const data:any = await getPrefecures()
-    //     if( data && data.result) {
-    //         setPrefectuers(data.result)
-    //     }
-    // }
-    // fetchPrefectures();
   }, [])
 
 
@@ -48,7 +48,6 @@ export default function Home() {
       return
 
       getPopulationConfiguration(prefCode)
-      .then((response) => response.json())
       .then((results) => {
         count?.push({
           prefName: prefName,
@@ -60,12 +59,6 @@ export default function Home() {
       .catch((e) => {
         return
       })
-      // const chartData = async () => {
-      //   const data: any = await getPopulationConfiguration(prefCode)
-      //   setPrefPopulation(data.result)
-  
-      //   chartData()
-      // }
     } else {
       const deleteChartData = count?.findIndex((value) => value.prefName === prefName)
       if  (deleteChartData === -1) return;

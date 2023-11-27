@@ -7,7 +7,7 @@ const header = {
 
 export const getPopulationConfiguration = async (
     prefCode: number,
-):Promise<any[]> => {
+):Promise<any> => {
     // fix 型を修正する。
     const result = await fetch(
         GET_POPULATION_CONFIGURATION_URL + String(prefCode),
