@@ -7,18 +7,34 @@ import { getPopulationConfiguration } from "@/utils/getPopulationComposition"
 import { ChartProps } from "@/compnents/chart"
 
 export default function Home() {
-  const [ prefectures, setPrefectuers ] = useState<prefectures[] | null>(null)
+  const [ prefectures, setPrefectuers ] = useState<
+    | {
+      message: null
+      result: {
+        prefCode: number,
+        prefName: string,
+      }[]
+    } | null
+  >(null)
   const [ prefPopulation, setPrefPopulation] = useState<ChartProps["PopulationData"]>([])
 
   useEffect(() => {
-    const fetchPrefectures = async () => {
-        const data:any = await getPrefecures()
-        if( data && data.result) {
-            setPrefectuers(data.result)
-        }
-    }
-    fetchPrefectures();
+    
+    getPrefecures().then((result) => {
+      // fix 型
+      setPrefectuers(result)
+    })
+    .catch((e) => {})
+    // const fetchPrefectures = async () => {
+    //     const data:any = await getPrefecures()
+    //     if( data && data.result) {
+    //         setPrefectuers(data.result)
+    //     }
+    // }
+    // fetchPrefectures();
   }, [])
+
+
 
   const clickCheck = (
     prefName: string,

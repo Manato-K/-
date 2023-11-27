@@ -17,5 +17,5 @@ export const getPopulationConfiguration = async (
     )
     if (result.status !== 200) throw Error();
     const json = await result.json()
-    return json
+    return json.result.data[0].data
 }
