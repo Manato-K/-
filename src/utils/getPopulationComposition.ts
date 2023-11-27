@@ -8,6 +8,7 @@ const header = {
 export const getPopulationConfiguration = async (
     prefCode: number,
 ):Promise<any[]> => {
+    // fix 型を修正する。
     const result = await fetch(
         GET_POPULATION_CONFIGURATION_URL + String(prefCode),
         {
@@ -17,5 +18,5 @@ export const getPopulationConfiguration = async (
     )
     if (result.status !== 200) throw Error();
     const json = await result.json()
-    return json.result.data[0].data
+    return json
 }

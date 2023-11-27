@@ -21,7 +21,7 @@ export default function Home() {
   useEffect(() => {
     
     getPrefecures().then((result) => {
-      // fix 型
+      // fix 型を修正する
       setPrefectuers(result)
     })
     .catch((e) => {})
@@ -46,12 +46,26 @@ export default function Home() {
     if (check) {
       if (count?.findIndex((value) => value.prefName === prefName) !== -1)
       return
-      const chartData = async () => {
-        const data: any = await getPopulationConfiguration(prefCode)
-        setPrefPopulation(data.result)
+
+      getPopulationConfiguration(prefCode)
+      .then((response) => response.json())
+      .then((results) => {
+        count?.push({
+          prefName: prefName,
+          data: results.result.data[0].data
+        })
+
+        setPrefPopulation(count)
+      })
+      .catch((e) => {
+        return
+      })
+      // const chartData = async () => {
+      //   const data: any = await getPopulationConfiguration(prefCode)
+      //   setPrefPopulation(data.result)
   
-        chartData()
-      }
+      //   chartData()
+      // }
     } else {
       const deleteChartData = count?.findIndex((value) => value.prefName === prefName)
       if  (deleteChartData === -1) return;
