@@ -7,8 +7,6 @@ const header = {
 
 export const getPopulationConfiguration = async (
     prefCode: number,
-    prefName: string,
-    check: boolean
 ):Promise<any[]> => {
     const result = await fetch(
         GET_POPULATION_CONFIGURATION_URL + String(prefCode),

@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react"
-import { getPrefecures } from '@/utils/getPrefectures'
+import { getPrefecures, prefectures } from '@/utils/getPrefectures'
 
+export type checkBoxState = {
+    onChange: (
+        name: string,
+        prefCode: number,
+        check: boolean
+    ) => void
+}
 
-type Prefecture = {
-    message: null;
-    result: {
-        prefCode: string;
-        prefName: string;
-    }[];
-};
-
-const checkBox = ():JSX.Element => {
-    const [ prefectures, setPrefectuers ] = useState<Prefecture["result"]>([])
+const checkBox = ({ onChange }: checkBoxState):JSX.Element => {
+    const [ prefectures, setPrefectuers ] = useState<prefectures["result"]>([])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -21,26 +20,35 @@ const checkBox = ():JSX.Element => {
                     setPrefectuers(data.result)
                 }
             } catch (e) {
-                console.error('Error lol' ,e)
+                console.error('Error' ,e)
             }
         }
         fetchData();
     }, [])
 
     return (
-        <div>
-            {prefectures.map((prefecture) => (
-                <div key={prefecture.prefCode}>
-                    <input
-                        type="checkbox"
-                        id={prefecture.prefCode}
-                        value={prefecture.prefCode}
-                    />
-                    <label htmlFor={prefecture.prefCode}>{prefecture.prefName}</label>
-
-                </div>
-            ))}
-        </div>
+        <>
+            <div>
+                {prefectures.map((prefecture) => (
+                    <div key={prefecture.prefName}>
+                        <input
+                            type="checkbox"
+                            onChange={(event) => 
+                                onChange(
+                                    prefecture.prefName,
+                                    prefecture.prefCode,
+                                    event.target.checked
+                                )
+                            }
+                            id={"checkbox" + prefecture.prefCode}
+                        />
+                        <label htmlFor={"checkbox" + prefecture.prefCode}>
+                            {prefecture.prefName.length === 3 ? "　" + prefecture.prefName: prefecture.prefName}
+                        </label>
+                    </div>
+                ))}
+            </div>
+        </>
     )
 }
 

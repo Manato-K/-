@@ -6,10 +6,10 @@ const header = {
 
 export type prefectures = {
     massage: null
-    result:[
-        prefCode: string,
+    result:{
+        prefCode: number,
         prefName: string
-    ]
+    }[]
 }
 
 
