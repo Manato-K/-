@@ -1,4 +1,4 @@
-add npm install highcharts
+add npm install highcharts  
 add npm install highcharts-react-official
 
 
